@@ -11,8 +11,10 @@
       <%= link_to(image_tag(item.image_url), item_path(item)) %>
       <p>
         <%= item.description %>
+        <% if item.active == false %>
+          <%= button_to "Activate", { action: "activate", id: item.id } %>
+        <% end %>
       </p>
     </div>
   <% end %>
 </div>
-
