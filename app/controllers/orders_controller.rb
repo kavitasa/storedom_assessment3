@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all
+    @count = Order.count
+    @orders = Order.group_by_status
   end
 
   def show
