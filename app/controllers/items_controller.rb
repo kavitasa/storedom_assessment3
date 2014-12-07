@@ -11,10 +11,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id].to_i)
   end
 
-  def update
-    # puts params
-    item = Item.find(params[:id].to_i)
-    item.update(active: true)
-    redirect_to items_path
-  end
+  # def update
+  #   # puts params
+  #   item = Item.find(params[:id].to_i)
+  #   item.update(active: true)
+  #   redirect_to items_path
+  # end
 end
