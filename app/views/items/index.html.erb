@@ -6,13 +6,17 @@
   </div>
   <div class="row"></div>
   <% @items.each do |item| %>
-    <div class="col-sm-3">
+    <div class="col-sm-3 item_name">
       <h5><%= item.name %></h5>
       <%= link_to(image_tag(item.image_url), item_path(item)) %>
       <p>
         <%= item.description %>
+        <% unless item.active %>
+          <%= form_for(item) do |f| %>
+          <%= f.submit "Activate" %>
+          <% end %>
+        <% end %>
       </p>
     </div>
   <% end %>
 </div>
-
