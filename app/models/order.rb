@@ -11,4 +11,15 @@ class Order < ActiveRecord::Base
   def self.group_by_status
     all.group_by(&:status)
   end
+
+  def update
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+    redirect_to orders_path, notice: "Order successfully updated"
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:status)
+  end
 end

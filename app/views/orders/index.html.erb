@@ -17,6 +17,9 @@
             <%= "#{index + 1}. #{item.name}" %>
           </p>
         <% end %>
+        <h5>Change Order Status:
+          <%= select("Order", "status", Order::STATUSES) %>
+        </h5>
       <% end %>
     </div>
   <% end %>

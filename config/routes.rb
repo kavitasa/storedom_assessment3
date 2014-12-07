@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post 'activate'
     end
   end
-  resources :orders, only: [:index, :show]
+  resources :orders, only: [:index, :show, :update]
   resources :users,  only: [:index, :show]
+  resources :tests
 end
