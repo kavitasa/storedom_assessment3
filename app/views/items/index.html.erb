@@ -12,7 +12,7 @@
       <p>
         <%= item.description %>
         <% unless item.active %>
-          <%= form_for(item, url: items_activation_path(item.id)) do |f| %>
+          <%= form_for(item, url: activate_item_path(item.id)) do |f| %>
           <%= f.submit "Activate" %>
           <% end %>
         <% end %>
