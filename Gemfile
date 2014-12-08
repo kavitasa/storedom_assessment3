@@ -18,6 +18,9 @@ group :development do
 end
 
 group :development, :test do
+  gem 'better_errors'
+  gem "binding_of_caller"
+  gem 'launchy'
   gem 'capybara'
   gem 'pry', :require => 'pry'
 end

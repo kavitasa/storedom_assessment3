@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all
+    # puts params
+    @orders = Order.group_by_status
   end
 
   def show
