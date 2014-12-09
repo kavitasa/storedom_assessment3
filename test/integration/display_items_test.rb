@@ -15,4 +15,30 @@ class DisplaysItemsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_it_only_displays_active_items
+    Item.create(name: "Silly", active: true)
+    Item.create(name: "Goose")
+    visit '/'
+    assert page.has_content?("Silly")
+    refute page.has_content?("Goose")
+  end
+
+  def test_it_displays_active_and_inactive_items
+    Item.create(name: "Silly", active: true)
+    Item.create(name: "Goose")
+    visit '/?show_inactive=true'
+    assert page.has_content?("Silly")
+    assert page.has_content?("Goose")
+  end
+
+  def test_it_has_activate_button
+    inactive_item = Item.create(name: "Goose")
+    visit '/?show_inactive=true'
+    within("div#item_id_#{inactive_item.id}") do
+      click_button("Activate!")
+    end
+    visit '/'
+    assert page.has_content?("Goose")
+  end
+
 end
