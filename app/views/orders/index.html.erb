@@ -4,18 +4,23 @@
       <h1><%= @orders.count %> Orders</h1>
     </div>
   </div>
-  <div class="row"></div>
-  <% @orders.each do |order| %>
-    <div class="col-sm-12">
-      <h2>Order <%= order.id %></h2>
-      <h5>Client: <%= order.user.name %></h5>
-      <h5>Order Items</h5>
-      <% order.items.each_with_index do |item, index| %>
-        <p>
-          <%= "#{index + 1}. #{item.name}" %>
-        </p>
-      <% end %>
+  <% Order::STATUSES.each do |status| %>
+  <div id="<%= status %>">
+    <h2><%= status.capitalize %> Orders</h2>
+      <% @orders[status].each do |order| %>
+        <!-- <div class="row" data-order-id="<%#= order.id %>"> -->
+          <div class="col-sm-12" data-order-id="<%= order.id %>">
+            <h2>Order <%= order.id %></h2>
+            <h5>Client: <%= order.user.name %></h5>
+            <h5>Order Items</h5>
+            <% order.items.each_with_index do |item, index| %>
+              <p>
+                <%= "#{index + 1}. #{item.name}" %>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      <!-- </div> -->
     </div>
   <% end %>
 </div>
-

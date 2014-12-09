@@ -14,5 +14,4 @@ class DisplaysItemsTest < ActionDispatch::IntegrationTest
       assert page.has_content?('Items'), "page should have an Items heading"
     end
   end
-
 end
