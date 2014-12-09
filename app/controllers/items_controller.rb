@@ -19,6 +19,7 @@ class ItemsController < ApplicationController
   end
 
   def item_params
+    # binding .pry
     params.require(:item).permit(:active)
   end
 end

@@ -13,12 +13,12 @@
         <%= item.description %>
       </p>
       <% unless item.active %>
-        <%= form_for item do |f| %>
-          <%= f.hidden_field :active, value: true %>
-          <%= f.submit "Activate!" %>
-        <% end %>
+        <%#= form_for item do |f| %>
+          <%#= f.hidden_field :active, value: true %>
+          <%#= f.submit "Activate!" %>
+        <%# end %>
       <% end %>
-      <%#= button_to "Activate!", item_path(item.id), method: :put %>
+      <%= button_to "Activate!", item_path(item.id, item: { active: :true}), method: :patch  %>
     </div>
   <% end %>
 </div>
