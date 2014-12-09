@@ -29,4 +29,10 @@ class OrderTest < ActiveSupport::TestCase
     end
   end
 
+  def test_hash_contains_all_keys
+    Order.create(status: 'complete')
+    grouped_orders = Order.group_by_status
+    assert_equal Order::STATUSES.sort, grouped_orders.keys.sort
+  end
+
 end

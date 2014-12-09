@@ -10,7 +10,8 @@ class Order < ActiveRecord::Base
   has_many :items, through: :order_items
 
   def self.group_by_status
-    all.group_by(&:status)
+    statuses = Hash[Order::STATUSES.map { |status| [status, []]}]
+    statuses.merge(all.group_by(&:status))
   end
 
 end

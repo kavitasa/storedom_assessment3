@@ -27,12 +27,13 @@ class DisplaysOrdersTest < ActionDispatch::IntegrationTest
     user = User.create(name: 'Person')
     order = Order.create(user_id: user.id, status: 'submitted')
     visit '/orders'
+    # save_and_open_page
+    assert page.has_css?("div[data-order-id='#{order.id}']")
     within("div[data-order-id='#{order.id}']") do
       assert page.has_css?("select", "submitted")
-      select 'rejected', from: "status"
+      select 'rejected', from: "order_status"
       click_button 'Save'
     end
-    visit '/'
     within("div#rejected") do
       assert page.has_css?("div[data-order-id='#{order.id}']")
     end
