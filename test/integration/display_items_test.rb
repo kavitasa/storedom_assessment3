@@ -41,7 +41,7 @@ class DisplaysItemsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_it_activates_inactive_item
+  def test_it_shows_Activate_button_only_on_inactive_items
     inactive_item = Item.create(name: 'Inactive_robot')
     active_item = Item.create(name: 'Active_drone', active: true)
     visit '/?show_inactive=true'
@@ -50,6 +50,20 @@ class DisplaysItemsTest < ActionDispatch::IntegrationTest
     end
     within("div#Item_#{active_item.id}") do
       refute page.has_button?('Activate!')
+    end
+  end
+
+  def test_it_activates_inactive_item
+    inactive_item = Item.create(name: 'Inactive_robot')
+    visit '/?show_inactive=true'
+    within("div#Item_#{inactive_item.id}") do
+      click_button('Activate!')
+    end
+    inactive_item.reload
+    assert_equal inactive_item.active, true, 'Active status should change to true'
+    assert_equal root_path, current_path
+    within("div#Item_#{inactive_item.id}") do
+      assert page.has_content?('Inactive_robot')
     end
   end
 
