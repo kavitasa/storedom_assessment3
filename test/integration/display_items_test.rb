@@ -15,4 +15,42 @@ class DisplaysItemsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_it_only_displays_active_items
+    Item.create(name: 'Inactive_robot')
+    Item.create(name: 'Active_drone', active: true)
+    visit '/'
+
+    within("#robots-list") do
+      assert page.has_content?('Active_drone')
+      refute page.has_content?('Inactive_robot'), 'Should show only active robots'
+    end
+  end
+
+  def test_it_shows_inactive_items_with_inactive_params
+    Item.create(name: 'Inactive_robot')
+    Item.create(name: 'Active_drone', active: true)
+    visit '/?show_inactive=true'
+    within("#robots-list") do
+      assert page.has_content?('Active_drone')
+      assert page.has_content?('Inactive_robot'), 'Should show inactive robots'
+    end
+    visit '/?show_inactive=false'
+    within("#robots-list") do
+      assert page.has_content?('Active_drone')
+      refute page.has_content?('Inactive_robot'), 'Should only show active robots'
+    end
+  end
+
+  def test_it_activates_inactive_item
+    inactive_item = Item.create(name: 'Inactive_robot')
+    active_item = Item.create(name: 'Active_drone', active: true)
+    visit '/?show_inactive=true'
+    within("div#Item_#{inactive_item.id}") do
+      assert page.has_button?('Activate!')
+    end
+    within("div#Item_#{active_item.id}") do
+      refute page.has_button?('Activate!')
+    end
+  end
+
 end
