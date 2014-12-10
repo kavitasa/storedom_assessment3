@@ -14,7 +14,7 @@
           <%= item.description %>
         </p>
         <% unless item.active %>
-          <%= button_to "Activate!", item_path(item.id, item: { active: :true}), method: :patch %>
+          <%= button_to "Activate!", activate_item_path(item.id) %>
         <% end %>
       </div>
     <% end %>

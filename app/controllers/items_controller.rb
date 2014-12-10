@@ -11,9 +11,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id].to_i)
   end
 
-  def update
+  # def update
+  #   item = Item.find(params[:id])
+  #   item.update_attributes(item_params)
+  #   redirect_to root_path
+  # end
+
+  def activate
     item = Item.find(params[:id])
-    item.update_attributes(item_params)
+    item.update(active: true)
     redirect_to root_path
   end
 
@@ -23,7 +29,7 @@ class ItemsController < ApplicationController
     params[:show_inactive] == 'true'
   end
 
-  def item_params
-    params.require(:item).permit(:active)
-  end
+  # def item_params
+  #   params.require(:item).permit(:active)
+  # end
 end

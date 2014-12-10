@@ -60,7 +60,7 @@ class DisplaysItemsTest < ActionDispatch::IntegrationTest
       click_button('Activate!')
     end
     inactive_item.reload
-    assert_equal inactive_item.active, true, 'Active status should change to true'
+    assert_equal true, inactive_item.active, 'Active status should change to true'
     assert_equal root_path, current_path
     within("div#Item_#{inactive_item.id}") do
       assert page.has_content?('Inactive_robot')
